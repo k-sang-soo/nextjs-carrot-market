@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.env
+prisma/schema.prisma
+src/libs/client.ts
+src/pages/api/client-test.tsx
