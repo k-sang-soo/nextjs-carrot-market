@@ -1,18 +1,19 @@
-import Button from '@/components/button';
-import Input from '@/components/input';
-import Layout from '@/components/layout';
-import { cls } from '@/libs/utils';
 import type { NextPage } from 'next';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import Button from '../components/button';
+import Input from '../components/input';
+import useMutation from '../libs/client/useMutation';
+import { cls } from '../libs/client/utils';
 
-interface IForm {
+interface EnterForm {
     email?: string;
     phone?: string;
 }
 
 const Enter: NextPage = () => {
-    const { register, watch, reset, handleSubmit } = useForm<IForm>();
+    const [enter, { loading, data, error }] = useMutation('/api/users/enter');
+    const { register, handleSubmit, reset } = useForm<EnterForm>();
     const [method, setMethod] = useState<'email' | 'phone'>('email');
     const onEmailClick = () => {
         reset();
@@ -22,11 +23,10 @@ const Enter: NextPage = () => {
         reset();
         setMethod('phone');
     };
-    const onValid = (data: IForm) => {
-        console.log('data', data);
+    const onValid = (validForm: EnterForm) => {
+        if (loading) return;
+        enter(validForm);
     };
-
-    console.log(watch());
     return (
         <div className="mt-16 px-4">
             <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
@@ -35,7 +35,7 @@ const Enter: NextPage = () => {
                     <h5 className="text-sm text-gray-500 font-medium">
                         Enter using:
                     </h5>
-                    <div className="grid  border-b  w-full mt-8 grid-cols-2 ">
+                    <div className="grid border-b  w-full mt-8 grid-cols-2 ">
                         <button
                             className={cls(
                                 'pb-4 font-medium text-sm border-b-2',
@@ -66,7 +66,9 @@ const Enter: NextPage = () => {
                 >
                     {method === 'email' ? (
                         <Input
-                            register={register('email')}
+                            register={register('email', {
+                                required: true,
+                            })}
                             name="email"
                             label="Email address"
                             type="email"
@@ -84,10 +86,12 @@ const Enter: NextPage = () => {
                         />
                     ) : null}
                     {method === 'email' ? (
-                        <Button text={'Get login link'} />
+                        <Button text={loading ? 'Loading' : 'Get login link'} />
                     ) : null}
                     {method === 'phone' ? (
-                        <Button text={'Get one-time password'} />
+                        <Button
+                            text={loading ? 'Loading' : 'Get one-time password'}
+                        />
                     ) : null}
                 </form>
 
