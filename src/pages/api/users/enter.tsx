@@ -70,36 +70,37 @@ async function handler(
         }
         console.log(user);
     } */
+
     if (phone) {
-        const msg = await twilioClient.messages.create({
-            messagingServiceSid: process.env.TWILIO_MSID,
-            // 원래는 아래 코드가 들어가야겠지만 테스트 계정이니 생략
-            // to: phone
-            to: process.env.MY_PHONE!,
-            body: `your login token is ${payload}.`,
-        });
-        console.log('핸드폰으로 가입', msg);
+        // const msg = await twilioClient.messages.create({
+        //     messagingServiceSid: process.env.TWILIO_MSID,
+        //     // 원래는 아래 코드가 들어가야겠지만 테스트 계정이니 생략
+        //     // to: phone
+        //     to: process.env.MY_PHONE!,
+        //     body: `your login token is ${payload}.`,
+        // });
+        // console.log('핸드폰으로 가입', msg);
     } else if (email) {
-        const mailOptions = {
-            from: process.env.MAIL_ID,
-            to: 'wsckm1@naver.com',
-            subject: 'Nomad Carrot Authentication Email',
-            text: `Authentication Code : ${payload}`,
-        };
-        const result = await smtpTransport.sendMail(
-            mailOptions,
-            (error, responses) => {
-                if (error) {
-                    console.log(error);
-                    return null;
-                } else {
-                    console.log('Successfully Send Email.', responses);
-                    return null;
-                }
-            },
-        );
-        smtpTransport.close();
-        console.log(result);
+        // const mailOptions = {
+        //     from: process.env.MAIL_ID,
+        //     to: 'wsckm1@naver.com',
+        //     subject: 'Nomad Carrot Authentication Email',
+        //     text: `Authentication Code : ${payload}`,
+        // };
+        // const result = await smtpTransport.sendMail(
+        //     mailOptions,
+        //     (error, responses) => {
+        //         if (error) {
+        //             console.log(error);
+        //             return null;
+        //         } else {
+        //             console.log('Successfully Send Email.', responses);
+        //             return null;
+        //         }
+        //     },
+        // );
+        // smtpTransport.close();
+        // console.log(result);
     }
 
     return res.status(200).json({
