@@ -1,7 +1,11 @@
+import mail from '@sendgrid/mail';
 import client from '@/libs/server/client';
 import withHandler, { ResponseType } from '@/libs/server/withHandler';
 import { NextApiRequest, NextApiResponse } from 'next';
 import twilio from 'twilio';
+import smtpTransport from './../../../libs/server/email';
+
+mail.setApiKey(process.env.SENDGRID_KEY!);
 
 const twilioClient = twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
@@ -74,7 +78,28 @@ async function handler(
             to: process.env.MY_PHONE!,
             body: `your login token is ${payload}.`,
         });
-        console.log(msg);
+        console.log('핸드폰으로 가입', msg);
+    } else if (email) {
+        const mailOptions = {
+            from: process.env.MAIL_ID,
+            to: 'wsckm1@naver.com',
+            subject: 'Nomad Carrot Authentication Email',
+            text: `Authentication Code : ${payload}`,
+        };
+        const result = await smtpTransport.sendMail(
+            mailOptions,
+            (error, responses) => {
+                if (error) {
+                    console.log(error);
+                    return null;
+                } else {
+                    console.log('Successfully Send Email.', responses);
+                    return null;
+                }
+            },
+        );
+        smtpTransport.close();
+        console.log(result);
     }
 
     return res.status(200).json({
