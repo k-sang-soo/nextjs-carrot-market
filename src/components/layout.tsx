@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
-import { cls } from '../libs/utils';
 import { useRouter } from 'next/router';
+import { cls } from './../libs/client/utils';
 
 interface LayoutProps {
     title?: string;
@@ -10,29 +10,58 @@ interface LayoutProps {
     children: React.ReactNode;
 }
 
-export default function Layout({ title, canGoBack, hasTabBar, children }: LayoutProps) {
+export default function Layout({
+    title,
+    canGoBack,
+    hasTabBar,
+    children,
+}: LayoutProps) {
     const router = useRouter();
     const onClick = () => {
         router.back();
     };
     return (
         <div>
-            <div className={cls(!canGoBack ? 'justify-center' : '', 'bg-white w-full max-w-xl text-lg px-10 font-medium py-3 fixed text-gray-800 border-b top-0  flex items-center')}>
+            <div
+                className={cls(
+                    !canGoBack ? 'justify-center' : '',
+                    'bg-white w-full max-w-xl text-lg px-10 font-medium py-3 fixed text-gray-800 border-b top-0  flex items-center',
+                )}
+            >
                 {canGoBack ? (
                     <button onClick={onClick}>
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 19l-7-7 7-7"></path>
+                        <svg
+                            className="w-6 h-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                                d="M15 19l-7-7 7-7"
+                            ></path>
                         </svg>
                     </button>
                 ) : null}
                 {title ? <span>{title}</span> : null}
             </div>
-            <div className={cls('pt-[73px]', hasTabBar ? 'pb-24' : '')}>{children}</div>
+            <div className={cls('pt-[73px]', hasTabBar ? 'pb-24' : '')}>
+                {children}
+            </div>
             {hasTabBar ? (
                 <nav className="bg-white max-w-xl text-gray-700 border-t fixed bottom-0 w-full px-10 pb-5 pt-3 flex justify-between text-xs">
                     <Link href="/" legacyBehavior>
                         <a className="flex flex-col items-center space-y-2">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -45,7 +74,13 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
                     </Link>
                     <Link href="/community" legacyBehavior>
                         <a className="flex flex-col items-center space-y-2">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -58,7 +93,13 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
                     </Link>
                     <Link href="/chats" legacyBehavior>
                         <a className="flex flex-col items-center space-y-2">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -71,7 +112,13 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
                     </Link>
                     <Link href="/live" legacyBehavior>
                         <a className="flex flex-col items-center space-y-2">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -84,8 +131,19 @@ export default function Layout({ title, canGoBack, hasTabBar, children }: Layout
                     </Link>
                     <Link href="/profile" legacyBehavior>
                         <a className="flex flex-col items-center space-y-2">
-                            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                            <svg
+                                className="w-6 h-6"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    strokeWidth="2"
+                                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                                ></path>
                             </svg>
                             <span>나의 캐럿</span>
                         </a>
