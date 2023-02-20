@@ -28,4 +28,10 @@ async function handler(
     res.json({ ok: true });
 }
 
-export default withApiSesstion(withHandler('POST', handler));
+export default withApiSesstion(
+    withHandler({
+        method: 'POST',
+        handler,
+        isPrivate: false,
+    }),
+);
