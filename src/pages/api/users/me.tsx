@@ -13,7 +13,7 @@ async function handler(
             id: req.session.user?.id,
         },
     });
-    return res.json({
+    res.json({
         ok: true,
         profile,
     });
