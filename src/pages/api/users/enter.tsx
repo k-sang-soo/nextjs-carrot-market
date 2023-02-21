@@ -103,7 +103,7 @@ async function handler(
         // console.log(result);
     }
 
-    return res.status(200).json({
+    res.status(200).json({
         ok: true,
     });
 }

@@ -46,17 +46,18 @@ const Enter: NextPage = () => {
     const onTokenValid = (validForm: TokenForm) => {
         if (tokenLoading) return;
         confirmToken(validForm);
-        console.log(validForm);
+        console.log('asdasd', validForm);
     };
 
     const router = useRouter();
     useEffect(() => {
+        console.log('tokenData', tokenData);
         if (tokenData?.ok) {
+            console.log('tokenData', tokenData);
             router.push('/');
         }
     }, [tokenData, router]);
 
-    console.log('data', data);
     return (
         <div className="mt-16 px-4">
             <h3 className="text-3xl font-bold text-center">Enter to Carrot</h3>
