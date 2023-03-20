@@ -13,7 +13,6 @@ export default function TextArea({
     register,
     ...rest
 }: TextAreaProps) {
-    console.log('...rest', rest);
     return (
         <div>
             {label ? (
